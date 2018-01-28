@@ -1,0 +1,94 @@
+Python函数参数
+在Python中，您可以定义一个使用可变数量的参数的函数。
+在本文中，您将学习使用默认，关键字和任意参数来定义这些函数。
+
+
+一、Python参数
+    在用户定义的功能主题中，我们学习了定义一个函数并调用它。否则，函数调用将导致错误。
+        这是一个例子。
+        def greet(name,msg):
+           """This function greets to
+           the person with the provided message"""
+           print("Hello",name + ', ' + msg)
+
+        #调用函数
+        greet("Monica","Good morning!")
+        #输出
+        输出：Hello Monica, Good morning!
+
+    下面是一个函数的调用，其中一个参数以及它们各自的错误消息。
+        >>> greet（“Monica”）＃只有一个参数
+        TypeError：greet（）缺少1个必需的位置参数：'msg'
+        >>> greet（）＃no arguments
+        TypeError：greet（）缺少2个必需的位置参数：'name'和'msg'
+二、变量函数参数
+    到目前为止，功能有固定数量的参数。
+    在Python中，还有其他方法来定义一个可以获取可变数量的参数的函数。
+    这种类型的三种不同形式如下所述:
+        1、Python默认参数
+        2、函数参数可以在Python中具有默认值。
+        3、可以通过使用赋值运算符（=）为参数提供默认值。
+
+    这是一个例子。
+        def greet(name, msg = "Good morning!"):
+           """
+           This function greets to the person with theprovided message.
+           If message is not provided,it defaults to "Good morning!"
+           """
+           print("Hello",name + ', ' + msg)
+        #进行调用函数，
+        #一个参数的
+        greet("Kate")
+        #两个参数的
+        greet("Bruce","How do you do?")
+
+    1）在调用此函数时，该参数name不具有默认值，并且在调用期间是必需的（必需）。
+    2）参数msg的默认值为"Good morning!"。所以在调用此函数时是可选的。如果提供了一个值，它将覆盖默认值。
+    3）函数中的任意数量的参数都可以有一个默认值。但是，一旦我们有一个默认参数，它右边的所有参数也必须有默认值。
+
+    这意味着，非默认参数不能遵循默认参数。例如，如果我们将上面的函数头定义为：
+    def greet（msg =“早安！”，名字）：
+    我们会得到一个错误：
+    SyntaxError：非默认参数跟随默认参数
+
+三、Python关键字参数
+    1、当我们使用某些值调用函数时，这些值将根据其位置分配给参数。
+        例如，在上面的函数greet()，当我们把它叫做是greet("Bruce","How do you do?")，该值"Bruce"被分配给参数名称，同样"How do you do?"以味精。
+
+        1）Python允许使用关键字参数调用函数。当我们以这种方式调用函数时，可以改变参数的顺序（position）。对上述功能的调用都是有效的，并产生相同的结果。
+            >>>＃2关键字参数（有序）
+            >>> greet（name =“Bruce”，msg =“你好吗？”）
+            >>>＃2关键字参数（无序）
+            >>> greet（msg =“如何你呢？“，name =”Bruce“）
+
+            >>>＃1位置，1个关键字参数
+            >>> greet（”Bruce“，msg =”你好吗？）
+        2）我们可以在函数调用期间将位置参数与关键字参数进行混合。关键字参数必须遵循位置参数。
+
+        3）在关键字参数后面有一个位置参数会导致错误。
+            例如函数调用如下：
+            greet（name =“Bruce”，“How do you do？”）
+            会导致错误：
+            SyntaxError：关键字arg后的非关键字arg
+四、Python任意参数
+        有时，我们不知道事先传递给一个函数的参数数量.
+        1）Python允许我们通过具有任意数量的参数的函数调用来处理这种情况。
+        2）在函数定义中，我们在参数名之前使用一个星号（*）来表示这种参数。
+            这是一个例子：
+            def greet(*names):
+               """This function greets all
+               the person in the names tuple."""
+
+               # names参数是一个元组类型的参数
+               for name in names:
+                   print("Hello",name)
+             #进行调用并传参数值
+            greet("Monica","Luke","Steve","John")
+
+            输出：
+                Hello Monica
+                Hello Luke
+                Hello Steve
+                Hello John
+             在这里，我们使用多个参数调用该函数。这些参数在传入函数之前被包装成一个元组。
+             在函数内部，我们使用一个for循环来检索所有的参数。

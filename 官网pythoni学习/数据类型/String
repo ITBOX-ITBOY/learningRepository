@@ -1,0 +1,288 @@
+Python字符串
+在本教程中，您将学习如何在Python中创建，格式化，修改和删除字符串。此外，您将被介绍到各种字符串操作和功能。
+
+字符串是一系列字符。
+
+字符只是一个符号。例如，英文有26个字符。
+
+计算机不处理字符，它们处理数字（二进制​​）。即使您可能会在屏幕上看到字符，内部存储和操作也是0和1的组合。
+
+将字符转换为数字称为编码，反向处理是解码。ASCII和Unicode是一些使用的流行编码。
+
+在Python中，字符串是Unicode字符的序列。引入Unicode以包含所有语言的每个字符，并使编码的一致性。您可以从这里了解有关Unicode的更多信息。
+
+如何创建一个字符串？
+可以通过在单个引号或双引号内包含字符来创建字符串。甚至可以在Python中使用三重引号，但通常用于表示多行字符串和文本字符串。
+# all of the following are equivalent
+my_string = 'Hello'
+print(my_string)
+
+my_string = "Hello"
+print(my_string)
+
+my_string = '''Hello'''
+print(my_string)
+
+# triple quotes string can extend multiple lines
+my_string = """Hello, welcome to
+           the world of Python"""
+print(my_string)
+
+When you run the program, the output will be:
+
+Hello
+Hello
+Hello
+Hello, welcome to
+           the world of Python
+
+
+           如何访问字符串中的字符？
+我们可以使用分片访问单个字符，并使用切片访问各种字符。索引从0开始。尝试从索引范围访问一个字符将提高一个IndexError。索引必须是整数。我们不能使用浮点数或其他类型，这将导致TypeError。
+
+Python允许其序列负向索引。
+
+-1的索引指的是最后一个项目，-2表示最后一个项目，依此类推。我们可以使用切片运算符（冒号）访问字符串中的一系列项目。
+
+
+str = 'programiz'
+print('str = ', str)
+
+#first character
+print('str[0] = ', str[0])
+
+#last character
+print('str[-1] = ', str[-1])
+
+#slicing 2nd to 5th character
+print('str[1:5] = ', str[1:5])
+
+#slicing 6th to 2nd last character
+print('str[5:-2] = ', str[5:-2])
+
+如果我们尝试访问索引超出范围或使用十进制数，我们将收到错误。
+
+# index must be in range
+>>> my_string[15]
+...
+IndexError: string index out of range
+
+# index must be an integer
+>>> my_string[1.5]
+...
+TypeError: string indices must be integers
+通过考虑下面的元素之间的索引可以最好地显示切片。
+
+如果我们要访问一个范围，我们需要从字符串中分割部分的索引。
+
+如何更改或删除字符串？
+字符串是不可变的。这意味着一旦分配了字符串的元素就不能被更改。我们可以简单地将不同的字符串重新分配到同一个名字。
+
+>>> my_string = 'programiz'
+>>> my_string[5] = 'a'
+...
+TypeError: 'str' object does not support item assignment
+>>> my_string = 'Python'
+>>> my_string
+'Python'
+
+我们无法从字符串中删除或删除字符。但是可以使用关键字完全删除该字符串del。
+
+>>> del my_string[1]
+...
+TypeError: 'str' object doesn't support item deletion
+>>> del my_string
+>>> my_string
+...
+NameError: name 'my_string' is not defined
+
+Python字符串操作
+有许多操作可以使用字符串执行，这使得它成为Python中最常用的数据类型之一。
+
+两个或更多串的连接
+将两个或多个字符串连接到一个字符串中称为连接。
+
+在+运营商做这在Python。简单地写两个字符串文字在一起也连接他们。
+
+在*运算符可以用来重复字符串的特定次数。
+
+str1 = 'Hello'
+str2 ='World!'
+
+# using +
+print('str1 + str2 = ', str1 + str2)
+
+# using *
+print('str1 * 3 =', str1 * 3)
+一起编写两个字符串文字也可以将它们连接成+运算符。
+
+如果我们要连接不同行中的字符串，我们可以使用括号。
+
+>>> # two string literals together
+>>> 'Hello ''World!'
+'Hello World!'
+
+>>> # using parentheses
+>>> s = ('Hello '
+...      'World')
+>>> s
+'Hello World'
+迭代字符串
+使用for循环，我们可以遍历一个字符串。下面是一个例子来计算一个字符串中'l'的数量。
+
+count = 0
+for letter in 'Hello World':
+    if(letter == 'l'):
+        count += 1
+print(count,'letters found')
+
+字符串成员测试
+我们可以使用关键字来测试字符串中是否存在子字符串in。
+
+>>> 'a' in 'program'
+True
+>>> 'at' not in 'battle'
+False
+
+使用Python的内置函数
+各种内置的功能与序列一起使用，并且与字符串一起使用。
+
+一些常用的是enumerate()和len()。该enumerate()函数返回枚举对象。它包含字符串中所有项目的索引和值作为对。这可以用于迭代。
+
+同样，len()返回字符串的长度（字符数）。
+
+str = 'cold'
+
+# enumerate()
+list_enumerate = list(enumerate(str))
+print('list(enumerate(str) = ', list_enumerate)
+
+#character count
+print('len(str) = ', len(str))
+
+Python字符串格式化
+逃脱序列
+如果我们要打印一个文本，他说：“有什么？” - 我们不能使用单引号或双引号。这将导致SyntaxError文本本身包含单引号和双引号。
+
+>>> print("He said, "What's there?"")
+...
+SyntaxError: invalid syntax
+>>> print('He said, "What's there?"')
+...
+SyntaxError: invalid syntax
+解决这个问题的一个方法是使用三重引号。或者，我们可以使用转义序列。
+
+转义序列以反斜杠开始，并以不同的方式进行解释。如果我们使用单引号来表示字符串，则字符串中的所有单引号都必须被转义。类似的情况是双引号。以下是代表上述文本的方法。
+
+# using triple quotes
+print('''He said, "What's there?"''')
+
+# escaping single quotes
+print('He said, "What\'s there?"')
+
+# escaping double quotes
+print("He said, \"What's there?\"")
+
+
+以下是Python支持的所有转义序列的列表。
+
+Python中的转义序列
+逃脱序列	描述
+\newline	反斜杠和换行被忽略
+\\	反斜杠
+\”	单引号
+\”	双引号
+\a ASCII贝尔
+\ b	ASCII退格
+\F	ASCII格式
+\ n	ASCII换行
+\ r	ASCII回车
+\ t	ASCII水平标签
+\ v	ASCII垂直标签
+\ OOO	字符与八进制值ooo
+\ xHH	具有十六进制值HH的字符
+这里有些例子
+
+>>> print("C:\\Python32\\Lib")
+C:\Python32\Lib
+
+>>> print("This is printed\nin two lines")
+This is printed
+in two lines
+
+>>> print("This is \x48\x45\x58 representation")
+This is HEX representation
+
+
+Raw String忽略转义序列
+有时我们可能希望忽略字符串内的转义序列。要做到这一点，我们可以将r或R在前面的字符串。这将意味着它是一个原始的字符串，其中的任何转义序列都将被忽略。
+
+>>> print("This is \x61 \ngood example")
+This is a
+good example
+>>> print(r"This is \x61 \ngood example")
+This is \x61 \ngood example
+
+format（）格式化字符串的方法
+该format()可用以字符串对象的方法是非常灵活和强大的格式化字符串。格式化字符串包含花括号{}作为占位符或被替换的替换字段。
+
+我们可以使用位置参数或关键字参数来指定顺序。
+
+# default(implicit) order
+default_order = "{}, {} and {}".format('John','Bill','Sean')
+print('\n--- Default Order ---')
+print(default_order)
+
+# order using positional argument
+positional_order = "{1}, {0} and {2}".format('John','Bill','Sean')
+print('\n--- Positional Order ---')
+print(positional_order)
+
+# order using keyword argument
+keyword_order = "{s}, {b} and {j}".format(j='John',b='Bill',s='Sean')
+print('\n--- Keyword Order ---')
+print(keyword_order)
+
+
+该format()方法可以有可选的格式规范。它们使用冒号与字段名分隔。例如，我们可以在给定的空间中左对齐<，右对齐>或居中^。我们还可以将整数格式化为二进制，十六进制等，并且浮点可以舍入或以指数格式显示。有一吨格式可以使用。请访问此处查看该format()方法可用的所有字符串格式。
+
+>>> # formatting integers
+>>> "Binary representation of {0} is {0:b}".format(12)
+'Binary representation of 12 is 1100'
+
+>>> # formatting floats
+>>> "Exponent representation: {0:e}".format(1566.345)
+'Exponent representation: 1.566345e+03'
+
+>>> # round off
+>>> "One third is: {0:.3f}".format(1/3)
+'One third is: 0.333'
+
+>>> # string alignment
+>>> "|{:<10}|{:^10}|{:>10}|".format('butter','bread','ham')
+'|butter    |  bread   |       ham|'
+旧样式格式化
+我们甚至可以格式化字符串，如sprintf()C编程语言中使用的旧样式。我们使用%操作符来实现这一点。
+
+>>> x = 12.3456789
+>>> print('The value of x is %3.2f' %x)
+The value of x is 12.35
+>>> print('The value of x is %3.4f' %x)
+The value of x is 12.3457
+
+
+常见的Python字符串方法
+字符串对象有很多方法可用。format()我们上面提到的方法是其中之一。一些常用的方法有lower()，upper()，join()，split()，find()，replace()等。这里是所有的完整列表内置的方法在Python字符串工作。
+
+>>> "PrOgRaMiZ".lower()
+'programiz'
+>>> "PrOgRaMiZ".upper()
+'PROGRAMIZ'
+>>> "This will split all words into a list".split()
+['This', 'will', 'split', 'all', 'words', 'into', 'a', 'list']
+>>> ' '.join(['This', 'will', 'join', 'all', 'words', 'into', 'a', 'string'])
+'This will join all words into a string'
+>>> 'Happy New Year'.find('ew')
+7
+>>> 'Happy New Year'.replace('Happy','Brilliant')
+'Brilliant New Year'

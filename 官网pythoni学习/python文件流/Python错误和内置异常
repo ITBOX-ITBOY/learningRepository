@@ -1,0 +1,70 @@
+
+Python（解释器）遇到错误时引发异常。例如：除以零。在本文中，您将了解Python中内置的不同异常。
+一、Python错误和内置异常
+    1）由于不遵循语言的正确结构（语法）引起的错误称为语法错误或解析错误。
+
+        >>> if a < 3
+          File "<interactive input>", line 1
+            if a < 3
+        SyntaxError: invalid syntax
+        我们可以在这里注意到，语句中没有冒号if。
+
+      2）运行时也会发生错误，这些异常称为异常。
+        例如，当我们尝试打开的文件不存在（FileNotFoundError），将数字除以零（ZeroDivisionError）时，
+        我们尝试导入的模块未找到（ImportError）等。
+      3）无论何时发生这种类型的运行时错误，Python会创建一个异常对象。
+            如果处理不当，它会打印一个追溯到该错误以及一些关于为什么发生错误的细节。
+
+            >>> 1 / 0
+            Traceback (most recent call last):
+             File "<string>", line 301, in runcode
+             File "<interactive input>", line 1, in <module>
+            ZeroDivisionError: division by zero
+
+            >>> open("imaginary.txt")
+            Traceback (most recent call last):
+             File "<string>", line 301, in runcode
+             File "<interactive input>", line 1, in <module>
+            FileNotFoundError: [Errno 2] No such file or directory: 'imaginary.txt'
+二、Python内置异常
+    非法行为可能引发例外。Python中有大量内置的异常，当出现相应的错误时会引发异常。
+    我们可以使用local()内置函数查看所有内置异常。
+    如下所示：
+            >>> locals()['__builtins__']
+        这将返回一个内置异常，函数和属性的字典。
+三、Python内置异常
+        Python编程中的一些常见内置异常以及导致的错误在下面列出。
+        Python内置异常
+            例外	错误原因
+            AssertionError	    当assert语句失败时触发。
+            AttributeError	    当属性分配或引用失败时引发。
+            EOFError	        当input()函数达到文件结束条件时触发。
+            FloatingPointError	当浮点操作失败时触发。
+            GeneratorExit	    当发电机的close()方法被调用时升高。
+            ImportError	        导入的模块未找到时触发。
+            IndexError	        当序列索引超出范围时引发。
+            KeyError	        当在字典中找不到键时提起。
+            KeyboardInterrupt	当用户点击中断键（Ctrl + c或删除）时触发。
+            MemoryError	        当操作内存不足时提起。
+            NameError	        当在本地或全局范围内找不到变量时引发。
+            NotImplementedError	由抽象方法提出。
+            OSERROR	            系统运行时引起系统相关错误。
+            OverflowError	    当算术运算的结果太大而不能被表示时提升。
+            ReferenceError	    当使用弱引用代理访问垃圾收集的对象时引发。
+            RuntimeError	    当错误不属于任何其他类别时提起。
+            的StopIteration	    由next()函数引发，表示迭代器没有要返回的其他项目。
+            的SyntaxError	    当遇到语法错误时由解析器引发。
+            IndentationError	当缩进不正确时提起。
+            TabError	        当缩进由不一致的标签和空格组成时引发。
+            SystemError	        当解释器检测到内部错误时提起。
+            SystemExit	        由sys.exit()功能提升。
+            TypeError	        当函数或操作应用于不正确类型的对象时引发。
+            UnboundLocalError	当引用函数或方法中的局部变量时引用，但没有值绑定到该变量。
+            UnicodeError	    当与Unicode相关的编码或解码错误发生时引发。
+            UnicodeEncodeError	在编码期间发生Unicode相关错误时引发。
+            UnicodeDecodeError	在解码过程中发生Unicode相关错误时引发。
+            UnicodeTranslateError	在翻译期间发生Unicode相关错误时引发。
+            ValueError	        当函数获取正确类型的参数但值不正确时引发。
+            ZeroDivisionError	当第二操作数除数或模运算为零时提升。
+            我们也可以在Python中定义我们自己的异常（如果需要的话）。访问此页面了解有关用户定义的异常的更多信息。
+            我们可以使用try，except和finally语句在Python中处理这些内置和用户定义的  异常。

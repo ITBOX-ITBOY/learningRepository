@@ -1,0 +1,138 @@
+在本文中，您将了解Python，Python对象和类的核心功能。你会学到一个课程是什么，如何创建它，并在你的程序中使用它。
+
+一、Python对象和类
+Python是面向对象的编程语言。与面向程序的编程不同，其中主要强调的是功能，面向对象的编程强调对象。
+对象只是对这些数据进行操作的数据（变量）和方法（函数）的集合。而且，课堂是对象的蓝图。
+我们可以将课堂看作是房子的素描（原型）。它包含有关楼层，门，窗等的所有细节。根据这些描述，我们建立了房子。房子是对象。
+因为许多房子可以从描述中制造，我们可以从课堂上创建许多对象。对象也称为类的实例，创建此对象的过程称为实例化。
+
+二、在Python中定义一个类
+    像函数定义一样，以关键字def开头，在Python中，我们使用关键字类来定义一个类。
+    第一个字符串被称为docstring，并且有一个关于该类的简要描述。虽然不是强制性的，但这是建议的。
+        这是一个简单的类定义。
+
+        class MyNewClass:
+            '''This is a docstring. I have created a new class'''
+            pass
+
+    一个类创建一个新的本地命名空间，其中定义了所有的属性。属性可以是数据或功能。
+    还有一些特殊属性，以双下划线（__）开头。例如，__doc__为我们提供了该类的docstring。
+    一旦我们定义一个类，就会创建一个新的类对象，名称相同。此类对象允许我们访问不同的属性以及实例化该类的新对象。
+
+        class MyClass:
+            "This is my second class"
+            a = 10
+            def func(self):
+                print('Hello')
+
+        # Output: 10
+        print(MyClass.a)
+
+        # Output: <function MyClass.func at 0x0000000003079BF8>
+        print(MyClass.func)
+
+        # Output: 'This is my second class'
+        print(MyClass.__doc__)
+
+        When you run the program, the output will be:
+
+        10
+        <function 0x7feaa932eae8="" at="" myclass.func="">
+        This is my second class
+
+三、在Python中创建一个对象
+        我们看到类对象可以用来访问不同的属性。
+        它也可以用于创建该类的新对象实例（实例化）。创建对象的过程类似于函数调用。
+        >>> ob = MyClass()
+        这将创建一个名为ob的新实例对象。我们可以使用对象名称前缀访问对象的属性。
+        属性可以是数据或方法。对象的方法是该类的相应函数。任何作为类属性的函数对象都定义了该类对象的方法。
+        这就是说，既然MyClass.func是一个函数对象（class的属性），ob.func就是一个方法对象。
+            class MyClass:
+                "This is my second class"
+                a = 10
+                def func(self):
+                    print('Hello')
+
+            # create a new MyClass
+            ob = MyClass()
+
+            # Output: <function MyClass.func at 0x000000000335B0D0>
+            print(MyClass.func)
+
+            # Output: <bound method MyClass.func of <__main__.MyClass object at 0x000000000332DEF0>>
+            print(ob.func)
+
+            # Calling function func()
+            # Output: Hello
+            ob.func()
+
+            您可能已经注意到类中的函数定义中的self参数，但是我们简单地称之为ob.func()没有任何参数的方法。它仍然奏效
+            这是因为，每当对象调用其方法时，对象本身就作为第一个参数传递。因此，ob.func()翻译成MyClass.func(ob)。
+            一般来说，调用具有n个参数列表的方法等同于通过在第一个参数之前插入方法的对象创建的参数列表来调用相应的函数。
+            由于这些原因，类中函数的第一个参数必须是对象本身。这通常称为自我。它可以以其他方式命名，但我们强烈建议遵循惯例。
+            现在您必须熟悉类对象，实例对象，函数对象，方法对象及其区别。
+
+四、Python中的构造函数
+            以double下划线（__）开头的类函数被称为特殊函数，因为它们具有特殊的含义。
+            特别感兴趣的是__init__()功能。当该类的新对象被实例化时，这个特殊函数被调用。
+            这种类型的函数也称为面向对象编程（OOP）中的构造函数。我们通常使用它来初始化所有的变量
+
+                class ComplexNumber:
+                    def __init__(self,r = 0,i = 0):
+                        self.real = r
+                        self.imag = i
+
+                    def getData(self):
+                        print("{0}+{1}j".format(self.real,self.imag))
+
+                # Create a new ComplexNumber object
+                c1 = ComplexNumber(2,3)
+
+                # Call getData() function
+                # Output: 2+3j
+                c1.getData()
+
+                # Create another ComplexNumber object
+                # and create a new attribute 'attr'
+                c2 = ComplexNumber(5)
+                c2.attr = 10
+
+                # Output: (5, 0, 10)
+                print((c2.real, c2.imag, c2.attr))
+
+                # but c1 object doesn't have attribute 'attr'
+                # AttributeError: 'ComplexNumber' object has no attribute 'attr'
+                c1.attr
+
+            在上面的例子中，我们定义一个新的类来表示复数。
+            它有两个功能，__init__()初始化变量（默认为零）并getData()正确显示数字。
+            在上述步骤中需要注意的一个有趣的事情是，可以即时创建对象的属性。
+            我们为对象c2创建了一个新的属性attr，我们也读取它。但是这并没有创建对象c1的属性。
+五、删除属性和对象
+        使用del语句可以随时删除对象的任何属性。在Python shell上尝试以下内容来查看输出。
+
+                >>> c1 = ComplexNumber(2,3)
+                >>> del c1.imag
+                >>> c1.getData()
+                Traceback (most recent call last):
+                ...
+                AttributeError: 'ComplexNumber' object has no attribute 'imag'
+
+                >>> del ComplexNumber.getData
+                >>> c1.getData()
+                Traceback (most recent call last):
+                ...
+                AttributeError: 'ComplexNumber' object has no attribute 'getData'
+        我们甚至可以使用del语句删除对象本身。
+
+            >>> c1 = ComplexNumber(1,3)
+            >>> del c1
+            >>> c1
+            Traceback (most recent call last):
+            ...
+            NameError: name 'c1' is not defined
+
+        其实呢比这更复杂。当我们这样做c1 = ComplexNumber(1,3)时，在在内存中创建一个新的实例对象，名称c1与它绑定。
+        在命令del c1中，删除该绑定，并从相应的命名空间中删除名称c1。
+        然而，该对象继续存在于内存中，如果没有其他名称被绑定，则该对象将被自动破坏。
+        Python中未引用对象的自动破坏也称为垃圾收集。

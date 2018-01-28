@@ -1,0 +1,86 @@
+
+在本文中，您将了解Python中的多重继承以及如何在程序中使用它。您还将了解多级继承和方法解析顺序。
+
+一、Python多重继承
+        C ++一样，一个类可以从Python中的多个基类派生出来。这被称为多重继承。
+        在多重继承中，所有基类的特性都被继承到派生类中。多重继承的语法类似于单继承。
+
+          Python多重继承示例
+            class Base1:
+                pass
+            class Base2:
+                pass
+            class MultiDerived(Base1, Base2):
+                pass
+            这里，MultiDerived派生自Base1和Base2类。
+
+类MultiDerived来自继承Base1和Base2。
+
+二、Python中的多层继承
+        另一方面，我们也可以继承一个派生类的形式。这被称为多级继承。它可以在Python中有任何深度。
+        在多级继承中，基类和派生类的特性被继承到新的派生类中。
+
+            下面给出了具有相应可视化的示例。
+            class Base:
+                pass
+
+            class Derived1(Base):
+                pass
+
+            class Derived2(Derived1):
+                pass
+
+                这里，Derived1派生自Base，Derived2派生自Derived1。
+
+三、Python中的方法解析顺序
+        Python中的每个类都派生自该类object。它是Python中最基础的类型。
+        所以在技术上，所有其他类，无论是内置还是用户定义，都是派生类，所有对象都是object类的实例。
+            # Output: True
+            print(issubclass(list,object))
+
+            # Output: True
+            print(isinstance(5.5,object))
+
+            # Output: True
+            print(isinstance("Hello",object))
+        在多继承方案中，在当前类中首先搜索任何指定的属性。
+        如果没有找到，搜索将继续进入父类，以深度优先，左右的方式，而不需要搜索相同的类两次。
+
+        所以，在上面的例子中MultiDerived类中的搜索顺序是[ MultiDerived，Base1，Base2，object]。
+        此顺序也称为线性化MultiDerived类，用于查找此顺序的规则集称为方法解析顺序（MRO）。
+        MRO必须防止本地优先排序，并提供单调性。
+        它确保一个类总是出现在其父母之前，并且在多个父母的情况下，该顺序与基类的元组相同。
+
+            类的MRO可以被视为__mro__属性或mro()方法。前者返回一个元组，而后者返回一个列表。
+
+            >>> MultiDerived.__mro__
+            (<class '__main__.MultiDerived'>,
+             <class '__main__.Base1'>,
+             <class '__main__.Base2'>,
+             <class 'object'>)
+
+            >>> MultiDerived.mro()
+            [<class '__main__.MultiDerived'>,
+             <class '__main__.Base1'>,
+             <class '__main__.Base2'>,
+             <class 'object'>]
+            这里有一个更复杂的多重继承示例及其可视化以及MRO。
+
+            class X: pass
+            class Y: pass
+            class Z: pass
+
+            class A(X,Y): pass
+            class B(Y,Z): pass
+
+            class M(B,A,Z): pass
+
+            # Output:
+            # [<class '__main__.M'>, <class '__main__.B'>,
+            # <class '__main__.A'>, <class '__main__.X'>,
+            # <class '__main__.Y'>, <class '__main__.Z'>,
+            # <class 'object'>]
+
+            print(M.mro())
+
+            参考这一点，进一步讨论MRO并了解实际算法如何计算。

@@ -1,0 +1,185 @@
+Python迭代器
+迭代器是可以迭代的对象。在本教程中，您将了解iterator的工作原理，以及如何使用__iter__和__next__方法构建自己的迭代器。
+
+迭代器在Python中无处不在。它们在for循环，理解，发电机等中实现优雅，但隐藏在明显的视野。
+
+Python中的迭代器只是一个可以迭代的对象。将返回数据的对象，一次一个元素。
+
+从技术上讲，Python的迭代器对象必须实现两个特殊的方法，__iter__()并且__next__()，统称为迭代器协议。
+
+如果我们可以从中获取一个迭代器，一个对象被称为iterable。大多数Python中的内置容器是列表，元组，字符串等都是可迭代的。
+
+的iter()功能（这又调用__iter__()方法）从他们返回迭代。
+
+通过Python中的迭代器迭代
+我们使用该next()函数手动迭代迭代器的所有项目。当我们到达结束，没有更多的数据要返回时，它会提高StopIteration。以下是一个例子。
+# define a list
+my_list = [4, 7, 0, 3]
+
+# get an iterator using iter()
+my_iter = iter(my_list)
+
+## iterate through it using next()
+
+#prints 4
+print(next(my_iter))
+
+#prints 7
+print(next(my_iter))
+
+## next(obj) is same as obj.__next__()
+
+#prints 0
+print(my_iter.__next__())
+
+#prints 3
+print(my_iter.__next__())
+
+## This will raise error, no items left
+next(my_iter)
+更优雅的自动迭代方式是使用for循环。使用这个，我们可以遍历任何可以返回迭代器的对象，例如列表，字符串，文件等。
+
+>>> for element in my_list:
+...     print(element)
+...
+4
+7
+0
+3
+循环如何实际工作？
+正如我们在上面的例子中看到的，for循环能够通过列表自动迭代。
+
+实际上，for循环可以迭代任何可迭代。我们来仔细看看for循环是如何在Python中实际实现的。
+
+for element in iterable:
+    # do something with element
+实际上被实施为。
+
+# create an iterator object from that iterable
+iter_obj = iter(iterable)
+
+# infinite loop
+while True:
+    try:
+        # get the next item
+        element = next(iter_obj)
+        # do something with element
+    except StopIteration:
+        # if StopIteration is raised, break from loop
+        break
+所以在内部，for循环创建一个迭代器对象，iter_obj通过调用iter()iterable。
+
+讽刺的是，这个for循环实际上是一个无限循环。
+
+在循环中，它调用next()获取下一个元素，并for使用该值执行循环体。在所有物品排气后，StopIteration被抬起，内部被卡住，环路结束。请注意，任何其他类型的异常都将通过。
+
+在Python中构建自己的Iterator
+在Python中轻松构建一个迭代器。我们只需要实现方法__iter__()和__next__()。
+
+该__iter__()方法返回迭代器对象本身。如果需要，可以执行一些初始化。
+
+该__next__()方法必须返回序列中的下一个项目。达到目的，在随后的电话中，它必须提高StopIteration。
+
+在这里，我们展示一个例子，在每次迭代中给我们下一个2的权力。功率指数从零开始到用户设定的数字。
+
+class PowTwo:
+    """Class to implement an iterator
+    of powers of two"""
+
+    def __init__(self, max = 0):
+        self.max = max
+
+    def __iter__(self):
+        self.n = 0
+        return self
+
+    def __next__(self):
+        if self.n <= self.max:
+            result = 2 ** self.n
+            self.n += 1
+            return result
+        else:
+            raise StopIteration
+
+
+            Now we can create an iterator and iterate through it as follows.
+
+>>> a = PowTwo(4)
+>>> i = iter(a)
+>>> next(i)
+1
+>>> next(i)
+2
+>>> next(i)
+4
+>>> next(i)
+8
+>>> next(i)
+16
+>>> next(i)
+Traceback (most recent call last):
+...
+StopIteration
+We can also use a for loop to iterate over our iterator class.
+
+>>> for i in PowTwo(5):
+...     print(i)
+...
+1
+2
+4
+8
+16
+32
+
+
+Python无限迭代器
+迭代器对象中的项目不必耗尽。可以有无限的迭代器（永远不会结束）。处理这样的迭代器时一定要小心。
+
+这是一个简单的例子来演示无限迭代器。
+
+的内置函数 iter()可以用两个参数来调用其中第一个参数必须是一个可调用对象（功能）和第二个是定点。迭代器调用此函数，直到返回的值等于前哨。
+
+>>> int()
+0
+
+>>> inf = iter(int,1)
+>>> next(inf)
+0
+>>> next(inf)
+0
+我们可以看到int()函数总是返回0.所以传递它将iter(int,1)返回一个调用的迭代器，int()直到返回的值等于1.这从来没有发生，我们得到一个无限的迭代器。
+
+我们也可以建立我们自己的无限迭代器。以下迭代器理论上将返回所有奇数。
+
+class InfIter:
+    """Infinite iterator to return all
+        odd numbers"""
+
+    def __iter__(self):
+        self.num = 1
+        return self
+
+    def __next__(self):
+        num = self.num
+        self.num += 2
+        return num
+
+        样品运行如下。
+
+>>> a = iter(InfIter())
+>>> next(a)
+1
+>>> next(a)
+3
+>>> next(a)
+5
+>>> next(a)
+7
+等等...
+
+当迭代这些类型的无限迭代器时，要小心包含终止条件。
+
+使用迭代器的优点是它们可以节省资源。如上所示，我们可以获得所有奇数，而不将整个系统存储在内存中。我们可以在有限的记忆中有无限的项目（理论上）。
+
+迭代器也使我们的代码看起来很酷。

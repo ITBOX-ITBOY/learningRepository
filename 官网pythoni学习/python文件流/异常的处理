@@ -1,0 +1,101 @@
+
+    在本文中，您将学习如何使用try，except和finally语句来处理Python程序中的异常。
+    这将激励您在Python中编写干净，可读和高效的代码。
+一、Python异常处理 - Try, Except and Finally
+    1、Python有许多内置的异常  ，这会强制您的程序在出现错误时输出错误。
+    2、当这些异常发生时，它会导致当前进程停止并将其传递给调用进程，直到它被处理为止。如果没有处理，我们的程序会崩溃。
+         例如，如果函数 A调用函数B又在函数中调用函数C并发生异常C。如果没有处理C，则异常传递给B然后到A。
+    3、如果从未处理过，则会出现错误信息，我们的程序突然意外停止。
+
+二、Python中捕捉异常
+    在Python中，可以使用try语句处理异常。
+    可以引发异常的关键操作放在try子句中，处理异常的代码写入except子句。
+    这取决于我们，一旦遇到异常，我们执行什么操作。这是一个简单的例子。
+
+        # import module sys to get the type of exception
+        import sys
+        randomList = ['a', 0, 2]
+        for entry in randomList:
+            try:
+                print("The entry is", entry)
+                r = 1/int(entry)
+                break
+            except:
+                print("Oops!",sys.exc_info()[0],"occured.")
+                print("Next entry.")
+                print()
+        print("The reciprocal of",entry,"is",r)
+
+        Output
+
+        The entry is a
+        Oops! <class 'ValueError'> occured.
+        Next entry.
+
+        The entry is 0
+        Oops! <class 'ZeroDivisionError' > occured.
+        Next entry.
+
+        The entry is 2
+        The reciprocal of 2 is 0.5
+        在这个程序中，我们循环，直到用户输入一个有效倒数的整数。可能导致异常的部分放在try块中。
+        如果没有发生异常，除了块被跳过，并且正常流继续。但是如果发生任何异常，它将被除外块所捕获。
+        在这里，我们使用模块中的ex_info()函数打印异常的名称，sys并要求用户再次尝试。我们可以看到值'a'和'1.3'导致ValueError和'0'导致ZeroDivisionError。
+三、在Python中捕捉特定异常
+        在上面的例子中，我们没有在except子句中提到任何异常。
+        这不是一个很好的编程实践，因为它将捕获所有异常并以相同的方式处理每个案例。我们可以指定except子句将捕获哪个异常。
+        一个try子句可以有任意数量的except子句来处理它们，但只有一个将被执行，以防发生异常。
+        我们可以使用一个元组来指定一个except子句中的多个异常。这里是一个伪代码示例。
+
+        try:
+           # do something
+           pass
+        except ValueError:
+           # handle ValueError exception
+           pass
+        except (TypeError, ZeroDivisionError):
+           # handle multiple exceptions
+           # TypeError and ZeroDivisionError
+           pass
+        except:
+           # handle all other exceptions
+           pass
+
+四、强制抛异常
+    在Python编程中，在运行时发生相应的错误时会引发异常，但是我们可以使用关键字raise强制提高它。
+    我们还可以选择将异常传递给异常，以澄清为什么引发异常。
+
+        >>> raise KeyboardInterrupt
+        Traceback (most recent call last):
+        ...
+        KeyboardInterrupt
+
+        >>> raise MemoryError("This is an argument")
+        Traceback (most recent call last):
+        ...
+        MemoryError: This is an argument
+
+        >>> try:
+        ...     a = int(input("Enter a positive integer: "))
+        ...     if a <= 0:
+        ...         raise ValueError("That is not a positive number!")
+        ... except ValueError as ve:
+        ...     print(ve)
+        ...
+        Enter a positive integer: -2
+        That is not a positive number!
+        尝试......终于
+        Python中的try语句可以有一个可选finally子句。无论什么，并且通常用于释放外部资源，此子句被执行。
+
+        例如，我们可能通过网络连接到远程数据中心或使用文件或使用图形用户界面（GUI）进行连接。
+
+        在所有这些情况下，我们必须清理资源一旦使用，无论是否成功。这些操作（关闭文件，GUI或从网络断开连接）在finally子句中执行以保证执行。
+
+        这是一个文件操作的例子来说明这一点。
+
+        try:
+           f = open("test.txt",encoding = 'utf-8')
+           # perform file operations
+        finally:
+           f.close()
+        这种类型的结构确保文件关闭，即使发生异常。

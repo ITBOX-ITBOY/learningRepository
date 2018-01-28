@@ -1,0 +1,47 @@
+一、Python匿名lambda函数
+    1、在Python中，匿名函数是一个没有名称的函数。
+    2、虽然使用def关键字定义了正常的函数，但在Python中使用lambda关键字定义匿名函数。
+    3、因此，匿名函数也称为lambda函数。
+
+二、Lambda函数
+    1、Lambda函数的语法：lambda arguments: expression
+    2、Lambda函数可以有任意数量的参数，但只能有一个表达式。
+    3、Lambda函数可以在需要函数对象的地方使用。
+        Lambda函数的例子：
+        # 使用lambda函数
+        double = lambda x: x * 2
+        # 输出: 10
+        print(double(5))
+
+        1）在上面的程序中，lambda x: x * 2是lambda函数。这里x是参数，x * 2是被评估和返回的表达式。
+        2）此功能没有名称。它返回一个分配给标识符的函数对象double。我们现在可以将其称为正常功能。
+            double = lambda x：x * 2
+            几乎相同
+            def double（x）：
+                   return x * 2
+三、使用Lambda函数
+    1、当我们在短时间内需要无名功能时，我们使用lambda函数。
+    2、在Python中，我们通常将其用作高阶函数（将其他函数作为参数）的参数。
+    3、lambda函数与如内置的功能一起使用filter()，map()等等。
+
+四、使用filter（）
+    1、在filter()Python函数中接受一个函数和一个列表作为参数。
+    2、该函数与列表中的所有项目一起调用，并返回一个新的列表，其中包含函数表达式为True。
+
+        以下是使用filter()函数从列表中过滤掉偶数的示例。
+            # 过滤偶数
+            my_list = [1, 5, 4, 6, 8, 11, 3, 12]
+            new_list = list(filter(lambda x: (x%2 == 0) , my_list))
+            # 输出: [4, 6, 8, 12]
+            print(new_list)
+
+
+五、使用map（）的示例
+    1、在map()Python中的函数接受一个函数和一个列表。
+    2、该函数与列表中的所有项目一起调用，并返回一个新的列表。
+        这是一个使用map()函数将列表中所有项目加倍的示例。
+        # 将map中的每个元素乘以2
+        my_list = [1, 5, 4, 6, 8, 11, 3, 12]
+        new_list = list(map(lambda x: x * 2 , my_list))
+        # 输出: [2, 10, 8, 12, 16, 22, 6, 24]
+        print(new_list)

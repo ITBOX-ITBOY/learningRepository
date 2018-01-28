@@ -1,0 +1,91 @@
+
+在本文中，您将学习根据您的要求定义自定义异常
+一、Python自定义异常
+        Python有许多内置的异常，这会强制您的程序在出现错误时输出错误。
+        但是，有时您可能需要创建用于您的目的的自定义异常。
+        在Python中，用户可以通过创建一个新类来定义这样的异常。
+        这个异常类必须从Exception类直接或间接导出。大多数内置异常也是从这个类派生出来的。
+
+            >>> class CustomError(Exception):
+            ...     pass
+            ...
+
+            >>> raise CustomError
+            Traceback (most recent call last):
+            ...
+            __main__.CustomError
+
+            >>> raise CustomError("An error occurred")
+            Traceback (most recent call last):
+            ...
+            __main__.CustomError: An error occurred
+
+        在这里，我们创建了一个CustomError由Exception类派生的用户定义的异常。
+        与其他异常一样，可以使用raise带有可选错误消息的语句来引发此新异常。
+        当我们开发一个大型的Python程序时，将我们的程序引入的所有用户定义的异常放在一个单独的文件中是一个很好的做法。
+        许多标准模块都这样做。他们分别定义自己的例外情况exceptions.py或errors.py（一般但不总是）。
+        用户定义的异常类可以实现普通类可以执行的所有操作，但是我们通常使它们简单而简洁。
+        大多数实现声明一个自定义基类，并从该基类派生其他异常类。在下面的例子中，这个概念变得更加清晰。
+
+        示例：Python中的用户定义的异常
+        在这个例子中，我们将说明如何在程序中使用用户定义的异常来引发和捕获错误。
+
+        该程序将要求用户输入一个号码，直到他们正确地猜到一个存储的号码。
+        为了帮助他们弄清楚，他们提供的猜测是否大于或小于存储的数量。
+
+                # define Python user-defined exceptions
+                class Error(Exception):
+                   """Base class for other exceptions"""
+                   pass
+
+                class ValueTooSmallError(Error):
+                   """Raised when the input value is too small"""
+                   pass
+
+                class ValueTooLargeError(Error):
+                   """Raised when the input value is too large"""
+                   pass
+
+                # our main program
+                # user guesses a number until he/she gets it right
+
+                # you need to guess this number
+                number = 10
+
+                while True:
+                   try:
+                       i_num = int(input("Enter a number: "))
+                       if i_num < number:
+                           raise ValueTooSmallError
+                       elif i_num > number:
+                           raise ValueTooLargeError
+                       break
+                   except ValueTooSmallError:
+                       print("This value is too small, try again!")
+                       print()
+                   except ValueTooLargeError:
+                       print("This value is too large, try again!")
+                       print()
+
+                print("Congratulations! You guessed it correctly.")
+
+                Here is a sample run of this program.
+
+                Enter a number: 12
+                This value is too large, try again!
+
+                Enter a number: 0
+                This value is too small, try again!
+
+                Enter a number: 8
+                This value is too small, try again!
+
+                Enter a number: 10
+                Congratulations! You guessed it correctly.
+
+    在这里，我们定义了一个基类Error。
+
+    实际上由我们的程序引发的另外两个异常（ValueTooSmallError和ValueTooLargeError）派生自这个类。
+    这是在Python编程中定义用户定义的异常的标准方法，但是并不限于此。
+
+    访问此页面，详细了解如何处理Python中的异常。

@@ -1,0 +1,309 @@
+
+在本文中，您将了解有关Python集的所有内容; 如何创建它们，添加或删除元素，以及在Python中对集合执行的所有操作。
+一套是无序的项目集合。每个元素都是唯一的（不重复），必须是不可变的（不能改变）。
+一、Python集合
+    1、集合本身是可变的。我们可以从中添加或删除项目。
+    2、集合可用于执行数学集合操作，如联合，交集，对称差异等。
+
+二、如何创建集合？
+    1、将所有项（元素）放在大括号{}中，通过逗号分隔或使用内置函数创建集合set()。
+    2、可以有任意数量的项目，它们可能是不同的类型（整数，浮点数，元组，字符串等）。
+        但是一个集合不能有可变元素，如列表，集合或字典，作为其元素。
+            # 设置集合
+            my_set = {1, 2, 3}
+            print(my_set)
+
+            # 设置任意类型的值
+            my_set = {1.0, "Hello", (1, 2, 3)}
+            print(my_set)
+            # 输出: {1, 2, 3, 4}
+
+            my_set = {1,2,3,4,3,2}
+            print(my_set)
+            # TypeError: unhashable type: 'list'
+            #my_set = {1, 2, [3, 4]}
+            #输出: {1, 2, 3}
+            my_set = set([1,2,3,2])
+            print(my_set)
+
+
+        3、创建一个空集有点棘手。
+            空的花括号{}将在Python中创建一个空字典。
+            为了使一个没有任何元素的集合，我们使用set()没有任何参数的函数。
+            # 初始化一个空的字典
+            a = {}
+            # 检查数据的类型
+            # 输出: <class 'dict'>
+            print(type(a))
+
+            # 初始化set()
+            a = set()
+
+            #检查数据的类型
+            # 输出: <class 'set'>
+            print(type(a))
+
+
+三、如何在Python中更改一个集合？
+    1、集是可变的。但是由于它们无序，索引没有意义。
+    2、我们无法使用索引或key访问或更改集合元素。设置不支持它。
+    3、可以使用add()方法添加单个元素，并使用该方法添加多个元素update()。
+    4、update()方法可以采用元组，列表，字符串或其他集合作为参数。在所有情况下，都避免重复。
+
+        # 初始脂my_set
+        my_set = {1,3}
+        print(my_set)
+        # if you uncomment line 9,
+        # you will get an error
+        # TypeError: 'set' object does not support indexing
+        #my_set[0]
+
+        # 添加元素
+        # 输出: {1, 2, 3}
+        my_set.add(2)
+        print(my_set)
+
+        # 添加多个元素
+        # 输出: {1, 2, 3, 4}
+        my_set.update([2,3,4])
+        print(my_set)
+
+        # add list and set
+        # Output: {1, 2, 3, 4, 5, 6, 8}
+        my_set.update([4,5], {1,6,8})
+        print(my_set)
+
+        When you run the program, the output will be:
+        {1, 3}
+        {1, 2, 3}
+        {1, 2, 3, 4}
+        {1, 2, 3, 4, 5, 6, 8}
+
+
+四、如何从集合中删除元素？
+        1、特定项目可以从集合使用方法去除，discard()和remove()。
+        2、两者之间的唯一区别：
+           1）discard()如果项目不存在于集合中，则它保持不变。
+           2）但remove()会在这种情况下引起错误。
+                以下示例将说明这一点。
+
+                # 初始化set集合
+                my_set = {1, 3, 4, 5, 6}
+                print(my_set)
+
+                # 丢弃一个元素
+                # 输出: {1, 3, 5, 6}
+                my_set.discard(4)
+                print(my_set)
+
+                # 删除一个元素
+                # 输出: {1, 3, 5}
+                my_set.remove(6)
+                print(my_set)
+
+                #  丢弃一个元素
+                # 输出: {1, 3, 5}
+                my_set.discard(2)
+                print(my_set)
+                # 删除一个结点
+                # not present in my_set
+                # If you uncomment line 27,
+                # you will get an error.
+                # 输出: KeyError: 2
+                #my_set.remove(2)
+
+            3、可以使用该pop()方法删除并返回一个项目。
+            4、设置无序，没有办法确定哪个项目将被弹出。这是完全任意的
+            5、可以从一组元素中删除所有项目clear()。
+                # 初始化my_set
+                # 输出: set of unique elements
+                my_set = set("HelloWorld")
+                print(my_set)
+                # pop一个元素
+                print(my_set.pop())
+
+                # pop任意一个元素
+                # 输出: random element
+                my_set.pop()
+                print(my_set)
+
+                # clear集合
+                #输出: set()
+                my_set.clear()
+                print(my_set)
+
+
+五、Python设置操作
+    集合可用于执行数学集合操作，如联合，交集，差异和对称差异。我们可以用操作符或方法来做到这一点。
+        让我们考虑以下两组进行以下操作。
+        >>> A = {1, 2, 3, 4, 5}
+        >>> B = {4, 5, 6, 7, 8}
+
+    1、Set 并集
+        A和B的联合是两组的所有元素的集合。
+        联合使用| 操作符执行。使用该方法可以完成相同的操作union()。
+        # 初始化 A and B
+        A = {1, 2, 3, 4, 5}
+        B = {4, 5, 6, 7, 8}
+
+        # 使用 | 操作符
+        # 输出: {1, 2, 3, 4, 5, 6, 7, 8}
+        print(A | B)
+
+        方法二：
+        # 使用 union函数
+        >>> A.union(B)
+        {1, 2, 3, 4, 5, 6, 7, 8}
+
+        # use union function on B
+        >>> B.union(A)
+
+    2、Set 交集
+        1）交集：甲和乙是一组在两组共用元件。
+        2）使用&操作符执行交点。使用该方法可以完成相同的操作intersection()。
+            # 初始化 A and B
+            A = {1, 2, 3, 4, 5}
+            B = {4, 5, 6, 7, 8}
+
+            # 使用 & 操作符
+            # 输出: {4, 5}
+            print(A & B)
+
+            方法二：
+            # 使用intersection 函数在A上
+            >>> A.intersection(B)
+            {4, 5}
+
+            # 使用intersection函数在 B
+            >>> B.intersection(A)
+            {4, 5}
+
+            Set Difference
+
+        3）使用-操作符执行差异。使用该方法可以完成相同的操作difference()。
+            # 初始化 A and B
+            A = {1, 2, 3, 4, 5}
+            B = {4, 5, 6, 7, 8}
+
+            # 使用 - 操作符在A
+            # 输出: {1, 2, 3}
+            print(A - B)
+
+            方法二、
+            # 使用 difference函数在A
+            >>> A.difference(B)
+            {1, 2, 3}
+
+            # 使用-操作符在B
+            >>> B - A
+            {8, 6, 7}
+
+            # 使用difference函数在 B
+            >>> B.difference(A)
+            {8, 6, 7}
+
+
+六、Set对称差
+    对称差甲和乙是一组在两个元件的甲和乙除了那些在两个是常见的。
+    使用^运算符执行对称差。使用该方法可以完成相同的操作symmetric_difference()。
+        # 初始化 A and B
+        A = {1, 2, 3, 4, 5}
+        B = {4, 5, 6, 7, 8}
+
+        # 使用 ^ 操作符
+        # 输出: {1, 2, 3, 6, 7, 8}
+        print(A ^ B)
+
+        # 使用symmetric_difference函数在A
+        >>> A.symmetric_difference(B)
+        {1, 2, 3, 6, 7, 8}
+        # 使用symmetric_difference函数在B
+        >>> B.symmetric_difference(A)
+        {1, 2, 3, 6, 7, 8}
+
+七、不同的Python集合方法
+        Python集合方法
+        方法	描述
+        add()	将一个元素添加到一个集合
+        clear()	删除所有元素组合
+        copy()	返回一套浅的副本
+        difference()	将两个或多个集合的差值返回为新集合
+        difference_update（）	从此集合中删除其他集合的所有元素
+        discard()	如果它是一个成员，从集合中删除一个元素。（如果元素未设置，则不执行任何操作）
+        intersection()	返回两组作为新集合
+        intersection_update（）	用自己的交叉点更新集合
+        isdisjoint（）	返回True如果两套具有空交集
+        issubset（）	True如果另一个集合包含此集合返回
+        issuperset（）	True如果此集合包含另一个集合返回
+        pop()	删除并返回一个任意的集合元素。KeyError如果设置为空，则提高
+        remove()	从集合中删除元素。如果元素不是成员，请提出aKeyError
+        symmetric_difference（）	将两组的对称差作为新集返回
+        symmetric_difference_update（）	更新一个具有本身和另一个的对称差异的集合
+        union()	返回新集合中的集合的并集
+        update()	更新一套与自己和其他人的联合
+
+
+八、其他Set操作
+    1、使用关键字，我们可以测试一个项目是否存在于一个集合中in。
+        # initialize my_set
+        my_set = set("apple")
+
+        # check if 'a' is present
+        # Output: True
+        print('a' in my_set)
+
+        # check if 'p' is present
+        # Output: False
+        print('p' not in my_set)
+
+     2、迭代一套
+          使用for循环，我们可以迭代一个集合中的每个项目。
+            >>> for letter in set("apple"):
+            ...     print(letter)
+            ...
+            a
+            p
+            e
+            l
+
+九、内置功能集
+    内置类似功能all()，any()，enumerate()，len()，max()，min()，sorted()，sum()等。通常与集，用于执行不同的任务。
+
+        内置功能集
+        功能	描述
+        all（）	返回True如果集合中的所有元素都为真（或者，如果设置为空）。
+        any（）	返回True如果设定的任何元素是真实的。如果设置为空，返回False.
+        enumerate()	返回枚举对象。它包含设置为一对的所有项目的索引和值。
+        LEN（）	返回集合中的长度（项目数）。
+        MAX（）	返回集合中最大的项目。
+        min()	返回集合中最小的项目。
+        sorted()	从集合中的元素返回新的排序列表（不对集本身进行排序）。
+        sum()	重新运行集合中所有元素的总和。
+
+
+十、Python Frozenset
+    1、Frozenset是一个具有一组特征的新类，但它的元素一旦分配就不能更改。
+    2、元组是不可变的列表，Frozenset是不可变的集合。
+    3、可变的集合是不可容忍的，因此它们不能用作字典键。
+    4、frozensets是可哈希的，可以用作字典的键。
+
+十一、可以使用该功能创建Frozensets frozenset()。
+        此数据类型支持等的方法copy()，difference()，intersection()，isdisjoint()，issubset()，issuperset()，symmetric_difference()和union()。它是不可变的，它没有添加或删除元素的方法。
+
+        # initialize A and B
+        A = frozenset([1, 2, 3, 4])
+        B = frozenset([3, 4, 5, 6])
+
+        Try these examples on Python shell.
+
+        >>> A.isdisjoint(B)
+        False
+        >>> A.difference(B)
+        frozenset({1, 2})
+        >>> A | B
+        frozenset({1, 2, 3, 4, 5, 6})
+        >>> A.add(3)
+        ...
+        AttributeError: 'frozenset' object has no attribute 'add'
+
+

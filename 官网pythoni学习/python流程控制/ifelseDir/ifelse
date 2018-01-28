@@ -1,0 +1,31 @@
+学习使用不同形式的if..else语句在Python程序中创建分支。
+
+1、if…elif…else语句在Python中用于决策。
+    Python if语句语法
+        if test expression:
+            statement(s)
+    1）这里，test expression只有文本表达式，程序才会计算并执行语句True。
+    2）如果文本表达式是False，则不执行语句。
+    3）在Python中，if语句的正文由缩进表示。内容体从缩进开始，第一个未缩进的线标记结束。
+    4）Python中将非零值解释为True。None并被0解释为False。
+        # If the number is positive, we print an appropriate message
+        num = 3
+        if num > 0:
+            print(num, "is a positive number.")
+        print("This is always printed.")
+
+        num = -1
+        if num > 0:
+            print(num, "is a positive number.")
+        print("This is also always printed.")
+
+    运行后输出:
+    3 is a positive number
+    This is always printed
+    This is also always printed.
+
+    Python 中if...else 语法：
+            if test expression:
+                Body of if
+            else:
+                Body of else

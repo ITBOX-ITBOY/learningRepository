@@ -1,0 +1,54 @@
+Python递归
+在本文中，您将学习创建递归函数; 一个调用自己的函数。
+
+一、递归介绍
+递归是根据自身定义某些东西的过程。
+物理世界的例子是将两个平行的镜子相互面对。它们之间的任何对象将被递归地反映。
+
+二、Python递归函数
+    在Python中，一个函数可以调用其他函数。
+    函数甚至可以调用自身。这些类型的构造被称为递归函数。
+
+    以下是一个递归函数的例子，可以找到整数的阶乘。
+    数字的因子是从1到该数字的所有整数的乘积。例如，6的乘积（表示为6！）是1 * 2 * 3 * 4 * 5 * 6 = 720。
+
+        # 递归函数的一个例子
+        def calc_factorial(x):
+            """
+                This is a recursive function
+                to find the factorial of an integer
+            """
+            if x == 1:
+                return 1
+            else:
+                return (x * calc_factorial(x-1))
+        num = 4
+        print("The factorial of", num, "is", calc_factorial(num))
+
+
+        在上面的例子中，calc_factorial()它是调用自身的递归函数。
+        当我们用正整数调用这个函数时，它会递减地递减自己的数字。
+        每个函数调用将数字乘以数字1的阶乘直到数字等于1。可以按照以下步骤说明此递归调用。
+
+        递归示意图：
+            calc_factorial(4)              # 1st call with 4
+            4 * calc_factorial(3)          # 2nd call with 3
+            4 * 3 * calc_factorial(2)      # 3rd call with 2
+            4 * 3 * 2 * calc_factorial(1)  # 4th call with 1
+            4 * 3 * 2 * 1                  # return from 4th call as number=1
+            4 * 3 * 2                      # return from 3rd call
+            4 * 6                          # return from 2nd call
+            24                             # return from 1st call
+
+       当数字减少到1时，我们的递归结束。这被称为基本条件。
+        每个递归函数必须具有停止递归的基本条件，否则函数无限地调用它。
+
+三、递归的优点
+    1、递归函数使代码看起来干净，优雅。
+    2、复杂的任务可以使用递归分解成更简单的子问题。
+    3、顺序生成比使用某些嵌套迭代更容易进行递归。
+
+四、递归的缺点
+    1、有时候递归的逻辑很难跟进。
+    2、递归调用是昂贵的（低效率），因为它们占用大量内存和时间。
+    3、递归函数很难调试。

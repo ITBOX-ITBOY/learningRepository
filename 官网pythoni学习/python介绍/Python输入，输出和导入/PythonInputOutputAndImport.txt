@@ -1,0 +1,105 @@
+'''
+Python输入，输出和导入
+本教程将重点:
+    1.介绍两个内置函数print（）和input（）来执行Python中的I / O任务。
+    2.此外，您将学习导入模块并在程序中使用它们。
+    3.Python提供了许多内置函数，在Python提示符下我们可以随时获得。
+
+一些功能类似input()并被print()广泛用于标准输入和输出操作。让我们先看看输出部分。
+
+一、Python输出使用print（）函数
+    1、我们使用该print()功能将数据输出到标准输出设备（屏幕）。
+    print('This sentence is output to the screen')
+    # 输出: This sentence is output to the screen
+    a = 5
+    print('The value of a is', a)
+    # 输出: The value of a is 5
+    在第二个print（）语句中，我们可以注意到在字符串和变量a的值之间添加了一个空格。
+    这是默认情况下的，但是我们可以改变它。
+
+    2、print()函数的实际语法是
+    print（* objects，sep =''，end ='\ n'，file = sys.stdout，flush = False）
+    这里objects是要打印的值。
+    print中的参数说明：
+        1）sep 分离器的值之间使用。它默认为空格字符。打印完所有数值后，end打印。
+        2）end它默认为新行。
+
+    The file是打印值的对象，其默认值为sys.stdout（屏幕）。下面是一个例子来说明这一点
+    print(1,2,3,4)
+    # 输出: 1 2 3 4
+
+    print(1,2,3,4,sep='*')
+    # 输出: 1*2*3*4
+
+    print(1,2,3,4,sep='#',end='&')
+    # 输出: 1#2#3#4&
+
+   3.输出格式
+        1） 有时，我们希望格式化我们的输出，使其看起来很有吸引力。
+        这可以通过使用该str.format()方法来完成。
+        此方法对任何字符串对象都可见。
+        >>> x = 5; y = 10
+        >>> print('The value of x is {} and y is {}'.format(x,y))
+        The value of x is 5 and y is 10
+        2）这里花括号{}被用作占位符。我们可以使用数字（元组索引）指定打印顺序。
+            print('I love {0} and {1}'.format('bread','butter'))
+            # 输出: I love bread and butter
+            print('I love {1} and {0}'.format('bread','butter'))
+            # 输出: I love butter and bread
+
+        3）可以使用key参数来格式化字符串。
+            >>> print('Hello {name}, {greeting}'.format(greeting = 'Goodmorning', name = 'John'))
+            Hello John, Goodmorning
+        4）格式化字符串，如C编程语言中sprintf()使用的旧样式。我们使用操作符来实现这一点。%
+            >>> x = 12.3456789
+            >>> print('The value of x is %3.2f' %x)
+            The value of x is 12.35
+            >>> print('The value of x is %3.4f' %x)
+            The value of x is 12.3457
+二、Python输入
+    到目前为止，我们的计划是静态的。变量的值被定义或硬编码到源代码中。为了允许灵活性，我们可能希望从用户那里获取输入。
+    在Python中，我们有这个input()功能。
+    1、input()语法是： input([prompt])
+        参数说明：
+            prompt在屏幕上要显示的字符串。这是可选的。
+        例子：
+            >>> num = input('Enter a number: ')
+            Enter a number: 10
+            >>> num
+            '10'
+        在这里，我们可以看到输入的值10是字符串，而不是数字。要将其转换成我们可以使用int()或者功能的float()数字。
+        >>> int('10')
+        10
+        >>> float('10')
+        10.0
+    2、可以使用该eval()功能执行相同的操作。但它进一步。它可以评估甚至表达式，只要输入是一个字符串
+        >>> int('2+3')
+        Traceback (most recent call last):
+          File "<string>", line 301, in runcode
+          File "<interactive input>", line 1, in <module>
+        ValueError: invalid literal for int() with base 10: '2+3'
+        >>> eval('2+3')
+        5
+三、Python导入（import关键字）
+    1、当我们的程序变大时，将其分解成不同的模块是一个好主意。
+    2、一个模块是一个包含Python定义和语句的文件。Python模块有一个文件名，并以扩展名结束.py。
+    3、模块中的定义可以导入到另一个模块或Python中的交互式解释器。
+        我们使用import关键字来做到这一点。
+        例如，我们可以math通过输入来导入模块import math。
+
+    4、使用from关键字导入一些特定的属性和功能。例如：
+        >>> from math import pi
+        >>> pi
+        3.141592653589793
+        在导入模块时，Python会查看定义的几个位置sys.path。它是目录位置的列表。
+            >>> import sys
+            >>> sys.path
+            ['',
+             'C:\\Python33\\Lib\\idlelib',
+             'C:\\Windows\\system32\\python33.zip',
+             'C:\\Python33\\DLLs',
+             'C:\\Python33\\lib',
+             'C:\\Python33',
+             'C:\\Python33\\lib\\site-packages']
+            我们也可以将自己的位置添加到此列表中。
+'''

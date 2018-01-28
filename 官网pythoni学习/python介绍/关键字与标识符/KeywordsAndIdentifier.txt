@@ -1,0 +1,44 @@
+'''
+Python 标识符与关键字
+
+一、关键字是Python中的保留字。
+    我们无法使用关键字作为变量名称，函数名称或任何其他标识符。它们用于定义Python语言的语法和结构。
+    在Python中，关键字区分大小写。
+    Python 3.3中有33个关键字。这个数字在时间上可能稍有不同。
+    所有的关键字，除了True，False并且None是小写的，它们必须被写成。所有关键字的列表如下。
+
+关键字：
+    False	class	finally	is	return
+    None	continue	for	lambda	try
+    True	def	from	nonlocal	while
+    and	del	global	not	with
+    as	elif	if	or	yield
+    assert	else	import	pass
+    break	except	in	raise
+
+
+二、Python标识符
+    标识符是Python中类等实体的名称。它有助于区分一个实体与另一个实体。
+
+定义标识符的规则：
+1.标识符可以是小写（a到z）或大写（A到Z）或数字（0到9）或下划线（_）的字母的组合。
+名称，如  myClass，var_1和print_this_to_screen，都是有效的例子。
+2.标识符无法以数字开头。1variable是无效的，但variable1完全正常。
+3.关键字不能用作标识符。
+>>> global = 1
+  File "<interactive input>", line 1
+    global = 1
+SyntaxError: invalid syntax
+4.我们不能在我们的标识符中使用特殊符号，如！，@，＃，$，％等。
+>>> a@ = 0
+  File "<interactive input>", line 1
+    a@ = 0
+     ^
+SyntaxError: invalid syntax
+
+5.标识符可以是任意长度。
+6.Python是区分大小写的语言。这意味着，Variable且variable是不一样的。定义有意义的标识符。
+然而，c = 10是有效的。写作count = 10会更有意义，即使在长时间的差距之后看着你的代码，它也会更容易弄清楚它的功能。
+可以使用下划线分隔多个单词this_is_a_long_variable。
+我们也可以使用骆驼式的写作风格，即除了初始单词之外的单词的每个第一个字母大写，没有任何空格。例如：camelCaseExample
+'''

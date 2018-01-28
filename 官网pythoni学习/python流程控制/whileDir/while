@@ -1,0 +1,30 @@
+Python while循环
+在编程中使用循环来重复特定的代码块。在本文中，您将学习在Python中创建一个while循环。
+
+一、python中while语法:
+    while test_expression:
+        Body of while
+
+    1）在while循环中，先检查表达式。只有在test_expression结果为True时。
+    2）一次迭代后，再次检查表达式。一直到test_expression为False为止。
+    3）在Python中，while循环的内容通过缩进来确定。
+    4）Python将任何非零值解释为True。None并被0解释为False。
+        # Program to add natural
+        # numbers upto
+        # sum = 1+2+3+...+n
+        # To take input from the user,
+        # n = int(input("Enter n: "))
+        n = 10
+        # initialize sum and counter
+        sum = 0
+        i = 1
+
+        while i <= n:
+            sum = sum + i
+            i = i+1    # update counter
+
+        # print the sum
+        print("The sum is", sum)
+        运行后，输出的结果:
+        Enter n: 10
+        The sum is 55

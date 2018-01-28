@@ -1,0 +1,67 @@
+Python for Loop
+在本文中，您将学习使用for循环的不同变体迭代一系列元素。
+一、for语法：
+    for val in sequence:
+        Body of for
+      参数说明：
+           val：是变量在每个迭代序列中接受值的。
+           sequence：是要遍历的对象
+二、for循环的主体与其余的代码使用缩进分隔。
+    代码例子
+    # 计算集合中的总和
+    # 集合对象
+    numbers = [6, 5, 3, 8, 4, 2, 5, 4, 11]
+    # 变量和
+    sum = 0
+    # 对集合进行遍历
+    for val in numbers:
+        sum = sum+val
+    # 输出: The sum is 48
+    print("The sum is", sum)
+
+三、 range（）函数
+    1、可以使用range()函数生成一个数字序列。range(10)将产生从0到9（10个数字）的数字。
+    2、可以将起始，停止和步长定义为range(start,stop,step size)。如果没有提供，步骤大小默认为1。
+    3、此函数不会将所有值存储在内存中，因此效率会降低。所以它记住开始，停止，步长，并生成下一个数字在旅途中。
+    4、要强制此功能输出所有项目，我们可以使用该功能list()。
+        以下示例将说明这一点。
+        # 输出: range(0, 10)
+         print(range(10))
+        # 输出集合: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        print(list(range(10)))
+        # 输出集合: [2, 3, 4, 5, 6, 7]
+        print(list(range(2, 8)))
+        # 输出集合: [2, 5, 8, 11, 14, 17]
+        print(list(range(2, 20, 3)))
+    5、可以使用for循环中的range（）函数来遍历一个数字序列。它可以与len()函数组合使用索引遍历序列。
+        这是一个例子。
+        # 通过索引遍历集合
+        genre = ['pop', 'rock', 'jazz']
+        # 进行遍历
+        for i in range(len(genre)):
+            print("I like", genre[i])
+        输出的结果:
+            I like pop
+            I like rock
+            ​I like jazz
+
+四、for循环与else
+    一个for循环也可以有一个可选的else块。else如果循环中使用的序列中的项目耗尽，则执行该部分。
+    break语句可以用来停止for循环。在这种情况下，else部分被忽略。
+    因此，如果不发生中断，则for循环的else部分运行。
+
+    这是一个例子来说明这一点。
+        digits = [0, 1, 5]
+        for i in digits:
+            print(i)
+        else:
+            print("No items left.")
+
+        运行输出的结果:
+        0
+        1
+        5
+        No items left.
+
+    在这里，for循环打印列表中的项目，直到循环耗尽。当for循环排气时，它执行else打印中的代码块
+    No items left.

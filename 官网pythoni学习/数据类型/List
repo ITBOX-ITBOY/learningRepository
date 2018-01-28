@@ -1,0 +1,254 @@
+Python列表
+在本文中，您将了解有关Python列表的所有内容; 创建它们，切片列表，添加或删除元素等等。
+
+一、Python列表
+        1、Python提供了一系列通常称为序列的复合数据类型。
+        2、列表是Python中最常用和非常通用的数据类型之一。
+二、如何创建列表？
+       1、 在Python编程中，通过将所有项（元素）放在方括号[]之间，以逗号分隔来创建列表。
+        它可以有任意数量的项目，它们可能是不同的类型（整数，浮点数，字符串等）。
+            # 空 list
+            my_list = []
+
+            # list of integers
+            my_list = [1, 2, 3]
+
+            # list with mixed datatypes
+            my_list = [1, "Hello", 3.4]
+        2、此外，列表甚至可以有另一个列表作为项目。这被称为嵌套列表。
+            ＃嵌套列表
+            my_list = [“mouse”，[8，4，6]，['a']]
+
+         3、如何从列表中访问元素？
+            1）列表索引
+                我们可以使用索引运算符[]来访问列表中的项目。索引从0开始。因此，具有5个元素的列表将索引从0到4。
+                试图访问一个其他将会引发的元素IndexError。索引必须是整数。我们不能使用浮点数或其他类型，这将导致TypeError。
+
+            2）使用嵌套索引访问嵌套列表。
+            my_list = ['p','r','o','b','e']
+                # Output: p
+                print(my_list[0])
+
+                # Output: o
+                print(my_list[2])
+
+                # Output: e
+                print(my_list[4])
+
+                # Error! Only integer can be used for indexing
+                # my_list[4.0]
+
+                # Nested List
+                n_list = ["Happy", [2,0,1,5]]
+
+                # Nested indexing
+
+                # Output: a
+                print(n_list[0][1])
+
+                # Output: 5
+                print(n_list[1][3])
+           4、负索引
+                Python允许其序列负向索引。-1的索引指的是最后一个项目，-2表示最后一个项目，依此类推。
+                    my_list = ['p','r','o','b','e']
+                    # Output: e
+                    print(my_list[-1])
+                    # Output: p
+                    print(my_list[-5])
+
+
+           5、如何在Python中切分列表？
+                我们可以使用切片操作符（冒号）访问列表中的一系列项目。
+                    my_list = ['p','r','o','g','r','a','m','i','z']
+                    # elements 3rd to 5th
+                    print(my_list[2:5])
+
+                    # elements beginning to 4th
+                    print(my_list[:-5])
+
+                    # elements 6th to end
+                    print(my_list[5:])
+
+                    # elements beginning to end
+                    print(my_list[:])
+
+
+           6、如何更改或添加元素到列表？
+                列表是可变的，意思是它们的元素可以改变，不像字符串或元组。
+                我们可以使用赋值运算符（=）来更改项目或项目范围。
+                    # mistake values
+                    odd = [2, 4, 6, 8]
+
+                    # change the 1st item
+                    odd[0] = 1
+
+                    # Output: [1, 4, 6, 8]
+                    print(odd)
+
+                    # change 2nd to 4th items
+                    odd[1:4] = [3, 5, 7]
+
+                    # Output: [1, 3, 5, 7]
+                    print(odd)
+
+           7、我们可以使用append()方法将一个项目添加到列表中，或者使用方法添加多个项目extend()。
+                    odd = [1, 3, 5]
+                    odd.append(7)
+
+                    # Output: [1, 3, 5, 7]
+                    print(odd)
+
+                    odd.extend([9, 11, 13])
+
+                    # Output: [1, 3, 5, 7, 9, 11, 13]
+                    print(odd)
+                我们也可以使用+运算符组合两个列表。这也被称为连接。
+
+           8、*运算符重复给定次数的列表。
+                odd = [1, 3, 5]
+                # Output: [1, 3, 5, 9, 7, 5]
+                print(odd + [9, 7, 5])
+
+                #Output: ["re", "re", "re"]
+                print(["re"] * 3)
+            此外，我们可以通过使用该方法在所需位置插入一个项目，insert()或者通过将其压入列表的空白片段中来插入多个项目。
+                    odd = [1, 9]
+                    odd.insert(1,3)
+
+                    # Output: [1, 3, 9]
+                    print(odd)
+
+                    odd[2:2] = [5, 7]
+
+                    # Output: [1, 3, 5, 7, 9]
+                    print(odd)
+
+
+             9、如何从列表中删除或删除元素？
+                我们可以使用关键字从列表中删除一个或多个项目del。甚至可以完全删除列表。
+
+                my_list = ['p','r','o','b','l','e','m']
+                # delete one item
+                del my_list[2]
+                # Output: ['p', 'r', 'b', 'l', 'e', 'm']
+                print(my_list)
+                # delete multiple items
+                del my_list[1:5]
+                # Output: ['p', 'm']
+                print(my_list)
+                # delete entire list
+                del my_list
+                # Error: List not defined
+                print(my_list)
+
+           10、我们可以使用remove()方法来删除给定的项目或pop()方法来删除给定索引处的项目。
+                pop()如果没有提供索引，该方法将删除并返回最后一个项目。这有助于我们将列表实现为堆栈（先进先出数据结构）。
+                我们也可以使用该clear()方法来清空列表。
+                    my_list = ['p','r','o','b','l','e','m']
+                    #进行删除值
+                    my_list.remove('p')
+
+                    # Output: ['r', 'o', 'b', 'l', 'e', 'm']
+                    print(my_list)
+
+                    # Output: 'o'
+                    print(my_list.pop(1))
+
+                    # Output: ['r', 'b', 'l', 'e', 'm']
+                    print(my_list)
+
+                    # Output: 'm'
+                    print(my_list.pop())
+
+                    # Output: ['r', 'b', 'l', 'e']
+                    print(my_list)
+                    #清除集合中的集
+                    my_list.clear()
+
+                    # Output: []
+                    print(my_list)
+
+            最后，我们还可以通过将一个空列表分配给一个元素片段来删除列表中的项目。
+
+                >>> my_list = ['p','r','o','b','l','e','m']
+                >>> my_list[2:3] = []
+                >>> my_list
+                ['p', 'r', 'b', 'l', 'e', 'm']
+                >>> my_list[2:5] = []
+                >>> my_list
+                ['p', 'r', 'm']
+
+
+
+三、Python列表方法
+    Python编程中列表对象可用的方法列在下面。
+    他们被访问list.method()。上面已经使用了一些方法。
+
+    Python列表方法
+        append（） - 将元素添加到列表的末尾
+        extend（） - 将列表的所有元素添加到另一个列表
+        insert（） - 在定义的索引处插入一个元素
+        remove（） - 从列表中删除一个元素
+        pop（） - 删除并返回给定索引处的元素
+        clear（） - 从列表中删除所有元素
+        index（） - 返回第一个匹配项的索引
+        count（） - 返回作为参数传递的项数的计数
+        sort（） - 按升序排列列表中的元素
+        reverse（） - 反转列表中项目的顺序
+        copy（） - 返回列表的浅层副本
+
+
+        列表理解：优雅的方式来创建新的列表
+        列表理解是从Python中现有列表创建新列表的一种优雅简洁的方法。
+        列表理解由一个表达式组成，其后面是方括号中的for语句。
+
+            这是一个例子，使每个项目的增加功率为2的列表。
+                pow2 = [2 ** x for x in range(10)]
+
+                # Output: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+                print(pow2)
+            这段代码相当于
+
+            pow2 = []
+            for x in range(10):
+               pow2.append(2 ** x)
+        列表解析可以可选地包含更多for或if语句。可选if语句可以过滤掉新列表的项目。
+        这里有些例子。
+            >>> pow2 = [2 ** x for x in range(10) if x > 5]
+            >>> pow2
+            [64, 128, 256, 512]
+            >>> odd = [x for x in range(20) if x % 2 == 1]
+            >>> odd
+            [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+            >>> [x+y for x in ['Python ','C '] for y in ['Language','Programming']]
+            ['Python Language', 'Python Programming', 'C Language', 'C Programming']
+
+
+四、Python中的其他列表操作
+        我们可以使用关键字来测试项目是否存在于列表中in。
+                my_list = ['p','r','o','b','l','e','m']
+                # 输出: True
+                print('p' in my_list)
+                # 输出: False 判断一个值是否在这个集合中
+                print('a' in my_list)
+                # 输出: True
+                print('c' not in my_list)
+
+五、通过列表迭代
+    使用for循环，我们可以遍历列表中的每个项目。
+        for fruit in ['apple','banana','mango']:
+                 print("I like",fruit)
+
+六、内置功能与列表
+    内置功能一样all()，any()，enumerate()，len()，max()，min()，list()，sorted()等通常与列表用于执行不同的任务。
+    all()	如果列表的所有元素都为true（或者列表为空），则返回True。
+    any()	如果列表的任何元素为真，则返回True。如果列表为空，则返回False。
+    enumerate()	返回枚举对象。它包含作为元组的列表的所有项目的索引和值。
+    len()	返回列表中的长度（项目数）。
+    list()	将可迭代（元组，字符串，集合，字典）转换为列表。
+    max()	返回列表中最大的项目。
+    min()	返回列表中最小的项目
+    sorted()	返回一个新的排序列表（不排序列表本身）。
+    sum()	返回列表中所有元素的总和。
+
+

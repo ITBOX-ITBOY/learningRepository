@@ -1,0 +1,161 @@
+
+在本文中，您将了解Python文件操作。更具体地说，打开文件，从中读取内容，写入文件，关闭文件以及您应该注意的各种文件方法。
+文件是磁盘上的命名位置来存储相关信息。它用于将数据永久存储在非易失性存储器（例如硬盘）中。
+一、Python文件I / O
+    由于随机存取存储器（RAM）是易失性的，当计算机关闭时丢失其数据，因此我们使用文件来将来使用数据。
+    当我们想要读取或写入文件时，我们需要先打开它。完成后，需要关闭，以便与文件绑定的资源被释放。
+    因此，在Python中，文件操作按以下顺序进行。
+        1）打开一个文件
+        2）读或写（执行操作）
+        3）关闭文件
+        4）打开一个文件
+        Python有一个内置函数open（）来打开一个文件。
+        此函数返回一个文件对象，也称为句柄，因为它用于相应地读取或修改该文件。
+
+        >>> f = open("test.txt")    # open file in current directory
+        >>> f = open("C:/Python33/README.txt")  # specifying full path
+
+        我们可以在打开文件时指定模式。在模式中，我们指定是否要读取'r'，写'w'或将'a'附加到文件中。
+        我们还指定是否要以文本模式或二进制模式打开文件。
+
+        默认是在文本模式下读取。在这种模式下，我们从文件中读取时会得到字符串。
+
+        另一方面，二进制模式返回字节，这是处理非文本文件（如图像或exe文件）时使用的模式。
+
+二、Python文件模式
+        模式	描述
+        'R'	打开一个文件进行阅读。（默认）
+        'W'	打开文件进行写入。如果新文件不存在或者截断文件（如果存在），则创建一个新文件。
+        'X'	打开独家创建的文件。如果文件已经存在，则操作失败。
+        'a'	打开在文件的末尾追加，而不会截断文件。创建一个新文件（如果不存在）。
+        'T'	在文本模式下打开。（默认）
+        'B'	以二进制模式打开。
+        '+'	打开文件进行更新（阅读和写作）
+
+        f = open("test.txt")      # equivalent to 'r' or 'rt'
+        f = open("test.txt",'w')  # write in text mode
+        f = open("img.bmp",'r+b') # read and write in binary mode
+
+        与其他语言不同，字符“a”并不意味着数字97，直到使用ASCII（或其他等效编码）进行编码。
+        此外，默认编码是平台依赖的。在Windows中，它是'cp1252'，而'utf-8'在Linux中。
+        所以，我们也不能依赖于默认编码，否则我们的代码在不同平台上的行为会有所不同。
+        因此，当以文本模式处理文件时，强烈建议您指定编码类型。
+
+        f = open("test.txt",mode = 'r',encoding = 'utf-8')
+        关闭文件
+            1)当我们完成对文件的操作时，我们需要正确关闭它。
+            2)关闭文件将释放与文件绑定的资源，并使用close（）方法完成。
+           3) Python有一个垃圾回收器来清理未引用的对象，但是我们不能依靠它来关闭文件。
+
+            f = open("test.txt",encoding = 'utf-8')
+            # perform file operations
+            f.close()
+                这种方法并不完全安全。如果在使用该文件执行某些操作时发生异常，则代码退出而不关闭该文件。
+
+            一个更安全的方法是使用try ... finally块。
+
+            try:
+               f = open("test.txt",encoding = 'utf-8')
+               # perform file operations
+            finally:
+               f.close()
+            这样，我们保证文件正确关闭，即使出现异常，导致程序流停止。
+
+            最好的方法是使用该with语句。这样可以确保当内部的程序段with退出时文件被关闭。
+
+            我们不需要显式调用close（）方法。它在内部完成。
+
+            with open("test.txt",encoding = 'utf-8') as f:
+               # perform file operations
+    写文件
+        为了写入一个文件，我们需要以写'w'的方式打开它，附加'a'或独占创建'x'模式。
+        我们需要注意'w'模式，因为它会覆盖到文件中，如果它已经存在。所有以前的数据都被删除。
+        使用write（）方法编写字符串或字节序列（对于二进制文件）。此方法返回写入文件的字符数。
+
+    with open("test.txt",'w',encoding = 'utf-8') as f:
+       f.write("my first file\n")
+       f.write("This file\n\n")
+       f.write("contains three lines\n")
+    如果程序不存在，该程序将创建一个名为'test.txt'的新文件。如果它存在，它将被覆盖。
+
+    我们必须包括换行符来区分不同的行。
+
+    从文件中取内容
+        要读取文件的内容，我们必须以阅读模式打开文件。
+        有各种方法可用于此目的。我们可以使用该read(size)方法读取大小数据的数量。
+        如果大小不指定参数，它读取并返回到文件的末尾。
+
+        >>> f = open("test.txt",'r',encoding = 'utf-8')
+        >>> f.read(4)    # read the first 4 data
+        'This'
+
+        >>> f.read(4)    # read the next 4 data
+        ' is '
+
+        >>> f.read()     # read in the rest till end of file
+        'my first file\nThis file\ncontains three lines\n'
+
+        >>> f.read()  # further reading returns empty sting
+        ''
+        我们可以看到，read（）方法返回换行为'\ n'。一旦达到文件的结尾，我们会在进一步阅读时得到空字符串。
+        我们可以使用seek（）方法来更改我们当前的文件光标（position）。
+        类似地，tell（）方法返回我们当前的位置（以字节为单位）。
+        >>> f.tell()    # get the current file position
+        56
+        >>> f.seek(0)   # bring file cursor to initial position
+        0
+        >>> print(f.read())  # read the entire file
+        This is my first file
+        This file
+        contains three lines
+        我们可以使用for循环逐行读取文件。这是高效和快速的。
+        >>> for line in f:
+        ...     print(line, end = '')
+        ...
+        This is my first file
+        This file
+        contains three lines
+        文件中的行具有换行符'\ n'。
+
+        此外，print（）结束参数可以在打印时避免两条换行符。
+
+或者，我们可以使用readline（）方法来读取文件的各个行。该方法读取文件直到换行符，包括换行符。
+
+        >>> f.readline()
+        'This is my first file\n'
+
+        >>> f.readline()
+        'This file\n'
+
+        >>> f.readline()
+        'contains three lines\n'
+
+        >>> f.readline()
+        ''
+最后，readlines（）方法返回整个文件的剩余行列表。当达到文件结尾（EOF）时，所有这些读取方法返回空值。
+
+        >>> f.readlines()
+        ['This is my first file\n', 'This file\n', 'contains three lines\n']
+        Python文件方法
+        文件对象可以使用各种方法。其中一些已被用于上述例子中。
+
+        以下是简单说明文本模式中完整的方法列表。
+
+        Python文件方法
+        方法	描述
+        close()	关闭一个打开的文件。如果文件已关闭，则不起作用。
+        detach()	分离底层的二进制缓冲区TextIOBase并返回它。
+        fileno()	返回文件的整数（文件描述符）。
+        flush()	刷新文件流的写缓冲区。
+        isatty（）为其	返回True如果文件流是交互式的。
+        read(n)	从文件中读取最多的n个字符。如果文件为负，或者None。
+        readline(n=-1)	True如果可以读取文件流，则返回。
+        readline（n = -1）	从文件读取并返回一行。如果指定，最多读取n个字节。
+        readlines（n = -1）	从文件中读取并返回一行行。如果指定，最多读取n个字节/字符。
+        seek（offset，from = SEEK_SET）	参考from（start，current，end）将文件位置更改为偏移字节。
+        seekable()	True如果文件流支持随机访问，则返回。
+        tell()	返回当前文件位置。
+        truncate（size = None）	将文件流大小调整为大小字节。如果大小没有指定，调整到目前的位置。
+        writable()	True如果文件流可以写入，则返回。
+        write(s)	将字符串s写入文件并返回写入的字符数。
+        writelines(lines)	写列表行的文件。

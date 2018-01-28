@@ -1,0 +1,224 @@
+Python装饰
+装饰器接收一个功能，添加一些功能并返回。在本文中，您将学习如何创建装饰器，以及为什么要使用它。
+
+Python有一个有趣的功能，称为装饰器，以便为现有代码添加功能。
+
+这也称为元编程，作为程序的一部分，尝试在编译时修改程序的另一部分。
+
+学习装修师之前需要知道什么？
+为了了解装饰器，我们必须首先在Python中了解一些基本的东西。
+
+我们必须感到舒服的是，Python中的所有东西（Yes！Even classes）都是对象。我们定义的名称只是绑定到这些对象的标识符。函数也不例外，它们也是对象（带有属性）。各种不同的名称可以绑定到同一个功能对象。
+
+这是一个例子。
+def first(msg):
+    print(msg)
+
+first("Hello")
+
+second = first
+second("Hello")
+
+当你运行代码，这两个函数first和second给出相同的输出。这里，名称first和second引用相同的函数对象。
+
+现在事情开始变得越来越严重
+
+函数可以作为参数传递给另一个函数。
+
+如果你已经使用功能，如map，filter和reduce在Python，那么你已经知道这件事。
+
+将其他函数作为参数的函数也称为高阶函数。这是一个这样的功能的例子。
+
+def inc(x):
+    return x + 1
+
+def dec(x):
+    return x - 1
+
+def operate(func, x):
+    result = func(x)
+    return result
+
+    We invoke the function as follows.
+
+>>> operate(inc,3)
+4
+>>> operate(dec,3)
+2
+
+
+此外，函数可以返回另一个函数。
+
+def is_called():
+    def is_returned():
+        print("Hello")
+    return is_returned
+
+new = is_called()
+
+#Outputs "Hello"
+new()
+
+这里is_returned()是一个定义和返回的嵌套函数，每次调用is_called()。
+
+最后，我们必须知道Python中的闭包。
+
+回到装修师
+函数和方法称为可调用，因为它们可以被调用。
+
+实际上，实现特殊方法的任何对象__call__()都称为可调用。因此，在最基本的意义上，装饰器是可调用的，可以返回可调用的。
+
+基本上，装饰器接收一个功能，添加一些功能并返回它。
+
+def make_pretty(func):
+    def inner():
+        print("I got decorated")
+        func()
+    return inner
+
+def ordinary():
+    print("I am ordinary")
+
+
+    当您在shell中运行以下代码时，
+
+>>> ordinary()
+I am ordinary
+
+>>> # let's decorate this ordinary function
+>>> pretty = make_pretty(ordinary)
+>>> pretty()
+I got decorated
+I am ordinary
+在上面的例子中，make_pretty()是装饰器。在分配步骤
+
+pretty = make_pretty(ordinary)
+该函数ordinary()被装饰，返回的函数被赋予了名称pretty。
+
+我们可以看到，装饰器功能为原始功能添加了一些新功能。这类似于包装礼物。装饰器充当包装。装饰物品的性质（里面的实际礼物）不会改变。但现在看起来很漂亮（因为装饰了）。
+
+一般来说，我们装饰一个函数并将其重新分配，
+
+ordinary = make_pretty(ordinary).
+这是一个常见的结构，为此，Python有一个简化的语法。
+
+我们可以使用@符号和装饰器函数的名称，并将其放在要装饰的函数的定义之上。例如，
+
+@make_pretty
+def ordinary():
+    print("I am ordinary")
+相当于
+
+def ordinary():
+    print("I am ordinary")
+ordinary = make_pretty(ordinary)
+这只是一个句法糖来实现装饰。
+
+用参数装饰函数
+上面的装饰器很简单，它只适用于没有任何参数的函数。如果我们有函数接受如下的参数怎么办？
+
+def divide(a, b):
+    return a/b
+该函数有两个参数a和b。我们知道，如果我们将b作为0 ，它会给出错误。
+
+>>> divide(2,5)
+0.4
+>>> divide(2,0)
+Traceback (most recent call last):
+...
+ZeroDivisionError: division by zero
+现在让我们做一个装饰器来检查这个case会导致错误。
+
+def smart_divide(func):
+   def inner(a,b):
+      print("I am going to divide",a,"and",b)
+      if b == 0:
+         print("Whoops! cannot divide")
+         return
+
+      return func(a,b)
+   return inner
+
+@smart_divide
+def divide(a,b):
+    return a/b
+
+
+    None如果发生错误，这个新的实现将返回。
+
+>>> divide(2,5)
+I am going to divide 2 and 5
+0.4
+
+>>> divide(2,0)
+I am going to divide 2 and 0
+Whoops! cannot divide
+这样我们可以装饰参数的函数。
+
+敏锐的观察者会注意到，装饰器中的嵌套inner()函数的参数与其装饰的函数的参数相同。考虑到这一点，现在我们可以让一般装饰工作者使用任何数量的参数。
+
+在Python中，这个魔法完成了function(*args, **kwargs)。通过这种方式，args将是元组的位置参数，并kwargs会在字典的关键字参数。这样的装饰师的例子将是。
+
+def works_for_all(func):
+    def inner(*args, **kwargs):
+        print("I can decorate any function")
+        return func(*args, **kwargs)
+    return inner
+在Python中链接装饰器
+多个装饰器可以在Python中链接。
+
+这就是说，一个功能可以用不同的（或相同的）装饰器多次装饰。我们只需将装饰器放置在所需功能之上。
+
+def star(func):
+    def inner(*args, **kwargs):
+        print("*" * 30)
+        func(*args, **kwargs)
+        print("*" * 30)
+    return inner
+
+def percent(func):
+    def inner(*args, **kwargs):
+        print("%" * 30)
+        func(*args, **kwargs)
+        print("%" * 30)
+    return inner
+
+@star
+@percent
+def printer(msg):
+    print(msg)
+printer("Hello")
+
+
+这将给出输出。
+
+
+******************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%
+你好
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+********* *********************
+上面的语法，
+
+@star
+@percent
+def printer(msg):
+    print(msg)
+相当于
+
+def printer(msg):
+    print(msg)
+printer = star(percent(printer))
+我们连锁装饰品的顺序很重要。如果我们把顺序颠倒了，
+
+@percent
+@star
+def printer(msg):
+    print(msg)
+执行将发生在
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+****************** **********
+你好
+******************************
+%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%
